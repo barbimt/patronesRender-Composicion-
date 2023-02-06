@@ -46,12 +46,11 @@ function App() {
         onLoading={() => <TodosLoading />}
         onEmptyTodos={() => <EmptyTodos />}
         // en el futuro esta render prop me va enviar una funcion y en esa funcion me va a enviar el texto q estan buscando los usuarios
-        onEmptyTodosSearchResults={
-          (searchText) => <p>
-            No hay resultados para {searchText}
-          </p>
-        }
-        render={(todo) => (
+        onEmptyTodosSearchResults={(searchText) => (
+          <p>No hay resultados para {searchText}</p>
+        )}
+      >
+        {(todo) => (
           <TodoItem
             key={todo.text}
             text={todo.text}
@@ -60,7 +59,7 @@ function App() {
             onDelete={() => deleteTodo(todo.text)}
           />
         )}
-      />
+      </TodoList>
       {!!openModal && (
         <Modal>
           <TodoForm addTodo={addTodo} setOpenModal={setOpenModal} />

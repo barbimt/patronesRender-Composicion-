@@ -2,6 +2,7 @@ import React from "react";
 import "./TodoList.css";
 
 function TodoList(props) {
+  const renderFunc = props.children || props.render
   return (
     <section className="TodoList-container">
       {/* cuando reciba props.error -> cuando mi componente tenga un error y sea true, entonces voy a querer renderizar todo lo que venga en mis propiedades en la función -> render prop onError() -> tenemos q llamarlo con () porque es una función  
@@ -12,7 +13,7 @@ function TodoList(props) {
       {(!props.loading && !props.totalTodos) && props.onEmptyTodos()}
 
       {/* utilizando la funcion render, hacemos una iteracion, dentro vamos a tener nuestro todo y dentro de este vamos a enviarle a nuestra props.render(todo) */}
-      {props.searchedTodos.map((todo) => props.render(todo))}
+      {props.searchedTodos.map(renderFunc)}
 
       {(!!props.totalTodos &&  !props.searchedTodos.length) && props.onEmptyTodosSearchResults(props.searchText)}
       <ul>{props.children}</ul>
