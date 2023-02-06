@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import { useTodos } from "./useTodos";
 import { TodoCounter } from "../TodoCounter";
 import { TodoSearch } from "../TodoSearch";
@@ -35,12 +35,23 @@ function App() {
         <TodoSearch searchValue={searchValue} setSearchValue={setSearchValue} />
       </TodoHeader>
 
-      <TodoList>
-        {error && <TodosError />}
-        {loading && <TodosLoading />}
-        {!loading && !searchedTodos.length && <EmptyTodos />}
-
-        {searchedTodos.map((todo) => (
+      {/* TodoList -> no vamos a renderizar todo lo q venga en su prop children, sino que vamos a darle propiedades como onError y cuando nuestro componente TodoList sepa que hay un error, entonces vamos a enviarle el componente TodosError.
+    Como usamos render props vamos a devolver una función -> es muy util cuando queremos devolver, entregarle alguna propiedad especial a nuestros componentes, en este caso, la propiedad onError no es util q la enviemos el error porque tenemos el error en el componente app, pero en el futuro si vamos a necesitar mas propiedades de especificar el error y demás a nuestro componente TodosError, por ahor alo dejamos como una función.
+    por dentro TodoList se va a encargar de hacer las verificaciones para renderizar uno u otro componente
+    la  prop render -> me va a devolver cada uno de mis todos, voy a poder iterar
+    
+    Al pasarle todas las render props, ahor atenemos q maquetar el TodoList, ya q en su propiedad children no tenemos nada, solo tenemos propiedades q son render props 
+    
+    - Todas las variantes o propiedades como error, loading, q son para hacer validaciones se las tenemos q enviar como  propiedades a nuestro componente TodoList*/}
+      <TodoList
+        error={error}
+        loading={loading}
+        searchedTodos={searchedTodos}
+        
+        onError={() => <TodosError />}
+        onLoading={() => <TodosLoading />}
+        onEmptyTodos={() => <EmptyTodos />}
+        render={(todo) => (
           <TodoItem
             key={todo.text}
             text={todo.text}
@@ -48,9 +59,8 @@ function App() {
             onComplete={() => completeTodo(todo.text)}
             onDelete={() => deleteTodo(todo.text)}
           />
-        ))}
-      </TodoList>
-
+        )}
+      />
       {!!openModal && (
         <Modal>
           <TodoForm addTodo={addTodo} setOpenModal={setOpenModal} />
