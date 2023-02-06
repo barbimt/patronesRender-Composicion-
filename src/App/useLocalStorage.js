@@ -24,7 +24,7 @@ function useLocalStorage(itemName, initialValue) {
         setError(error);
       }
     }, 3000);
-  });
+  }, []); //con el array [] se ejecuta una vez el useEffect
   
   const saveItem = (newItem) => {
     try {
