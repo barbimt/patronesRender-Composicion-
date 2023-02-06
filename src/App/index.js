@@ -31,11 +31,18 @@ function App() {
   return (
     <React.Fragment>
       <TodoHeader>
-        <TodoCounter totalTodos={totalTodos} completedTodos={completedTodos} />
-        <TodoSearch searchValue={searchValue} setSearchValue={setSearchValue} />
+        <TodoCounter
+          loading={loading}
+          totalTodos={totalTodos}
+          completedTodos={completedTodos}
+        />
+        <TodoSearch
+          loading={loading}
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+        />
       </TodoHeader>
 
-      {/* nuestro componente TodoList ya no renderiza todo lo q le enviemos en su propiedad children, sino que ahora también tiene algunas propiedades para q haga validaciones y dependiendo de esas validaciones pueda renderizar o no distintos estados de carga*/}
       <TodoList
         error={error}
         loading={loading}
@@ -45,7 +52,6 @@ function App() {
         onError={() => <TodosError />}
         onLoading={() => <TodosLoading />}
         onEmptyTodos={() => <EmptyTodos />}
-        // en el futuro esta render prop me va enviar una funcion y en esa funcion me va a enviar el texto q estan buscando los usuarios
         onEmptyTodosSearchResults={(searchText) => (
           <p>No hay resultados para {searchText}</p>
         )}
