@@ -9,12 +9,12 @@ function TodoList(props) {
       {props.error && props.onError()}
       {props.loading && props.onLoading()}
       {/*Tenemos q verificar si nuestro componente no está cargando, pero tampoco hay resultados de los todo*/}
-      {(!props.loading && !props.searchedTodos.length) && props.onEmptyTodos()}
+      {(!props.loading && !props.totalTodos) && props.onEmptyTodos()}
 
       {/* utilizando la funcion render, hacemos una iteracion, dentro vamos a tener nuestro todo y dentro de este vamos a enviarle a nuestra props.render(todo) */}
       {props.searchedTodos.map((todo) => props.render(todo))}
 
-
+      {(!!props.totalTodos &&  !props.searchedTodos.length) && props.onEmptyTodosSearchResults(props.searchText)}
       <ul>{props.children}</ul>
     </section>
   );
