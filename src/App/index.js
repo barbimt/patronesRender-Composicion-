@@ -27,20 +27,14 @@ function App() {
     searchValue,
     setSearchValue,
     addTodo,
-    sincronizeTodos
+    sincronizeTodos,
   } = useTodos();
 
   return (
     <React.Fragment>
       <TodoHeader loading={loading}>
-        <TodoCounter
-          totalTodos={totalTodos}
-          completedTodos={completedTodos}
-        />
-        <TodoSearch
-          searchValue={searchValue}
-          setSearchValue={setSearchValue}
-        />
+        <TodoCounter totalTodos={totalTodos} completedTodos={completedTodos} />
+        <TodoSearch searchValue={searchValue} setSearchValue={setSearchValue} />
       </TodoHeader>
 
       <TodoList
@@ -73,7 +67,7 @@ function App() {
       )}
 
       <CreateTodoButton setOpenModal={setOpenModal} />
-      <ChangeAlertWithStorageListener sincronize={sincronizeTodos}/>
+      <ChangeAlertWithStorageListener sincronize={sincronizeTodos} />
     </React.Fragment>
   );
 }
